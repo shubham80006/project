@@ -7,6 +7,7 @@ package mysampleconsole;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -17,7 +18,7 @@ public class database {
 
     Connection c = null;
     String sql;
-   
+   PreparedStatement pstmt;
     Statement stmt;
 
     database() {
@@ -26,7 +27,7 @@ public class database {
         try {
 
             Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:foxteam.db");
+            c = DriverManager.getConnection("jdbc:sqlite:foxteam1.db");
             stmt = c.createStatement();
             c.setAutoCommit(false);
 
@@ -52,12 +53,12 @@ public class database {
 
     }
 
-    void Set_User(user USER) {
+   /* void Set_User(user USER) {
 
         try {
 
             Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:foxteam.db");
+            c = DriverManager.getConnection("jdbc:sqlite:foxteam1.db");
             stmt = c.createStatement();
             c.setAutoCommit(true);
 
@@ -68,15 +69,15 @@ public class database {
             sql = "INSERT INTO LoginUser (com_id,userName,Password) "
                     + "VALUES ('" + USER.company_Id + "','" + USER.UserName + "'," + USER.Password + ");";
             stmt.executeUpdate(sql);
-            System.out.println("database successfully created!!!");
+            System.out.println("IN database store the data successfully !!!");
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(Mysampleconsole.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
+    } */
 void clearDatabase(){
         try {
             Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:foxteam.db");
+            c = DriverManager.getConnection("jdbc:sqlite:foxteam1.db");
             stmt = c.createStatement();
             c.setAutoCommit(true);
 
@@ -93,20 +94,21 @@ void clearDatabase(){
 }
 void dataRetrive(user USER){
         try {
+             String sql = "SELECT * FROM LoginUser";
             Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:foxteam.db");
-            stmt = c.createStatement();
-            c.setAutoCommit(true);
-            String sql = "SELECT com_id, userName,Password FROM LoginUser";
-            ResultSet rs =stmt.executeQuery(sql);
+            c = DriverManager.getConnection("jdbc:sqlite:foxteam1.db");
+            stmt  = c.createStatement();  
+            ResultSet rs = stmt.executeQuery(sql);  
              while (rs.next()) {
-               /* System.out.println(rs.getInt("com_id") +  "\t" + 
+                System.out.println(rs.getInt("com_id") +  "\t" + 
                                    rs.getString("userName") + "\t" +
-                                   rs.getString("Password")); */
+                                   rs.getString("Password")); 
                 USER.company_Id=rs.getInt("com_id");
+               
                 USER.UserName=rs.getString("userName");
                 USER.Password=rs.getString("Password");
             }
+             System.out.println("data successfully Retrive");
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(database.class.getName()).log(Level.SEVERE, null, ex);
         }

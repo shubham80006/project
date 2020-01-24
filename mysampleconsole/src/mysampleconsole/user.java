@@ -7,10 +7,10 @@ package mysampleconsole;
 import mysampleconsole.LoginServices;
 
 public class user {
-    String UserName;
-    String Password;
+    String UserName="shubham";
+    String Password="12345";
     String companyName ;
-    int company_Id;
+    int company_Id=1;
     int branch_Id;
     int EmpId;
     String EmpName;
