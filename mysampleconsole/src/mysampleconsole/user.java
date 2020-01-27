@@ -4,13 +4,17 @@
  * and open the template in the editor.
  */
 package mysampleconsole;
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import mysampleconsole.LoginServices;
 
 public class user {
-    String UserName="shubham";
-    String Password="12345";
+    String UserName;
+    String Password;
     String companyName ;
-    int company_Id=1;
+    public static String currentDate;
+    int company_Id;
     int branch_Id;
     int EmpId;
     String EmpName;
@@ -19,8 +23,11 @@ public class user {
     boolean PuchIn;
     boolean PuchOut;
     boolean LoginStatus;
+    
     user(){
-      
+      DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        java.util.Date date = new java.util.Date();
+       currentDate = dateFormat.format(date);
     }
     public String toString() {
 			return "user [UserName=" + UserName + ", Password=" + Password + ", companyName=" + companyName

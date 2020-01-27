@@ -5,6 +5,7 @@
  */
 package mysampleconsole;
 
+import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -15,7 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class database {
-
+     String dbPath="jdbc:sqlite:foxteam1.db";
     Connection c = null;
     String sql;
    PreparedStatement pstmt;
@@ -27,7 +28,7 @@ public class database {
         try {
 
             Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:foxteam1.db");
+            c = DriverManager.getConnection(this.dbPath);
             stmt = c.createStatement();
             c.setAutoCommit(false);
 
@@ -53,12 +54,12 @@ public class database {
 
     }
 
-   /* void Set_User(user USER) {
+    void Set_User(user USER) {
 
         try {
 
             Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:foxteam1.db");
+            c = DriverManager.getConnection(this.dbPath);
             stmt = c.createStatement();
             c.setAutoCommit(true);
 
@@ -73,11 +74,11 @@ public class database {
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(Mysampleconsole.class.getName()).log(Level.SEVERE, null, ex);
         }
-    } */
+    } 
 void clearDatabase(){
         try {
             Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:foxteam1.db");
+            c = DriverManager.getConnection(this.dbPath);
             stmt = c.createStatement();
             c.setAutoCommit(true);
 
@@ -96,7 +97,7 @@ void dataRetrive(user USER){
         try {
              String sql = "SELECT * FROM LoginUser";
             Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:foxteam1.db");
+            c = DriverManager.getConnection(this.dbPath);
             stmt  = c.createStatement();  
             ResultSet rs = stmt.executeQuery(sql);  
              while (rs.next()) {
@@ -107,8 +108,9 @@ void dataRetrive(user USER){
                
                 USER.UserName=rs.getString("userName");
                 USER.Password=rs.getString("Password");
+                System.out.println("data successfully Retrive");
             }
-             System.out.println("data successfully Retrive");
+             
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(database.class.getName()).log(Level.SEVERE, null, ex);
         }
